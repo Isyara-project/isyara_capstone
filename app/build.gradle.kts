@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.devtools.ksp") version "2.0.20-1.0.24"
 }
 
 android {
@@ -13,6 +14,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -32,6 +34,7 @@ android {
     }
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
     kotlinOptions {
         jvmTarget = "17"
@@ -39,12 +42,52 @@ android {
 }
 
 dependencies {
-
+    // Core Android Libraries
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
+
+    // UI Components
+    implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.constraintlayout)
+
+    // Lifecycle, ViewModel, and LiveData
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // Room Database with KSP
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    // Dependency Injection (Hilt) with KSP
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+
+    // Networking (Retrofit & Gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    // Image Processing (Glide)
+    implementation(libs.glide)
+    ksp(libs.compiler)
+
+    // Machine Learning (TensorFlow Lite)
+    implementation(libs.tensorflow.lite)
+    implementation(libs.tensorflow.lite.gpu)
+    implementation(libs.tensorflow.lite.support)
+
+    // Coroutines for async programming
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Navigation Component
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+
+    // Testing Libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
